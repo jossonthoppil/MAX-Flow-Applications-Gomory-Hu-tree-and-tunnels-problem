@@ -1,7 +1,7 @@
 #Ford-Fulkerson Algorithm
 
 #find path by using BFS
-def dfs(C, F, s, t):
+def ff_dfs(C, F, s, t):
 
 	stack = [s]
 	paths={s:[]}
@@ -27,7 +27,7 @@ def dfs(C, F, s, t):
 
 	return None
 
-def max_flow(C, s, t):
+def ford_fulkerson_max_flow(C, s, t):
 
 	n = len(C) 					#n -> number of vertices
 	F = []
@@ -36,7 +36,7 @@ def max_flow(C, s, t):
 		F.append([0] * n)		
 
 
-	path = dfs(C, F, s, t)		#Find an augmenting path if it exists, from s to t in residual graph C-F 
+	path = ff_dfs(C, F, s, t)		#Find an augmenting path if it exists, from s to t in residual graph C-F 
 	
 	while path != None:
 
@@ -46,7 +46,7 @@ def max_flow(C, s, t):
 			F[u][v] += flow
 			F[v][u] -= flow
 
-		path = dfs(C,F,s,t) 						#Find an augmenting path if it exists, from s to t in residual graph C-F 
+		path = ff_dfs(C,F,s,t) 						#Find an augmenting path if it exists, from s to t in residual graph C-F 
 
 
 		final_flow = []
