@@ -1,22 +1,52 @@
 #Edmonds-Karp Algorithm
+from collections import deque
+from sys import maxsize as maxint
 
 #find path by using BFS
-def ek_bfs(C, F, s, t):
-		queue = [s]
-		paths = {s:[]}
-		if s == t:
-			return paths[s]
-		while queue: 
-			u = queue.pop(0)
-			for v in range(len(C)):
-					if(C[u][v]-F[u][v]>0) and v not in paths:
-						paths[v] = paths[u]+[(u,v)]
-						
-						if v == t:
-							print(paths[v])
-							return paths[v]
-						queue.append(v)
-		return None
+def ek_bfs(graph, start, target, flow):
+	
+	V = len(graph)
+
+	queue = deque()
+	queue.append(start)
+	paths = {start:[]}
+	if start == target:
+			return paths[start]
+
+	while queue:
+		u = queue.popleft()
+
+		for v in range(V):
+
+			if(graph[u][v]-flow[u][v]>0) and v not in paths:
+				paths[v] = paths[u]+[(u,v)]
+
+				if v == target:
+					print(paths[v])
+					return paths[v]
+
+				queue.append(v)
+
+	return None
+
+# def sanity_check(C, F, s, t):
+# 	"""This function is not used, please ignore it"""
+
+# 	queue = [s]
+# 	paths = {s:[]}
+# 	if s == t:
+# 		return paths[s]
+# 	while queue: 
+# 		u = queue.pop(0)
+# 		for v in range(len(C)):
+# 			if(C[u][v]-F[u][v]>0) and v not in paths:
+# 				paths[v] = paths[u]+[(u,v)]
+				
+# 				if v == t:
+# 					print(paths[v])
+# 					return paths[v]
+# 				queue.append(v)
+# 	return None
 
 
 def edmonds_karp_max_flow(C, s, t):
@@ -27,7 +57,7 @@ def edmonds_karp_max_flow(C, s, t):
 	for i in range(n):
 		F.append([0] * n)		
 	
-	path = ek_bfs(C, F, s, t)
+	path = ek_bfs(C, s, t, F)
  
 	while path != None:
 
@@ -37,7 +67,7 @@ def edmonds_karp_max_flow(C, s, t):
 			F[u][v] += flow
 			F[v][u] -= flow
 
-		path = ek_bfs(C, F, s, t)
+		path = ek_bfs(C, s, t, F)
 
 	final_flow = []
 	for i in range(n):
