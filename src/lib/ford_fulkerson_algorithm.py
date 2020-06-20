@@ -20,7 +20,7 @@ def ff_dfs(C, F, s, t):
 				
 
 				if v == t:
-					print (paths[v])
+					#print (paths[v])
 					return (paths[v])
 
 				stack.append(v)

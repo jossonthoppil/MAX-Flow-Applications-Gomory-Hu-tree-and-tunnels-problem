@@ -59,8 +59,7 @@ def modified_edmonds_karp_max_flow(graph, source, sink, color, pred, depth, flow
         u = sink
 
         while pred[u] != -1:
-            increment = min(
-                increment, capacity[pred[u], u] - flow[pred[u], u])
+            increment = min(increment, capacity[pred[u], u] - flow[pred[u], u])
             u = pred[u]
 
         u = sink

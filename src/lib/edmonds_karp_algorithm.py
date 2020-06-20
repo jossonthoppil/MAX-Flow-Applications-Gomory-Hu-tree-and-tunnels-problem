@@ -22,7 +22,7 @@ def ek_bfs(graph, start, target, flow):
 				paths[v] = paths[u]+[(u,v)]
 
 				if v == target:
-					print(paths[v])
+					#print(paths[v])
 					return paths[v]
 
 				queue.append(v)
@@ -30,47 +30,48 @@ def ek_bfs(graph, start, target, flow):
 	return None
 
 # def sanity_check(C, F, s, t):
-# 	"""This function is not used, please ignore it"""
+#   """This function is not used, please ignore it"""
 
-# 	queue = [s]
-# 	paths = {s:[]}
-# 	if s == t:
-# 		return paths[s]
-# 	while queue: 
-# 		u = queue.pop(0)
-# 		for v in range(len(C)):
-# 			if(C[u][v]-F[u][v]>0) and v not in paths:
-# 				paths[v] = paths[u]+[(u,v)]
+#   queue = [s]
+#   paths = {s:[]}
+#   if s == t:
+#       return paths[s]
+#   while queue: 
+#       u = queue.pop(0)
+#       for v in range(len(C)):
+#           if(C[u][v]-F[u][v]>0) and v not in paths:
+#               paths[v] = paths[u]+[(u,v)]
 				
-# 				if v == t:
-# 					print(paths[v])
-# 					return paths[v]
-# 				queue.append(v)
-# 	return None
+#               if v == t:
+#                   print(paths[v])
+#                   return paths[v]
+#               queue.append(v)
+#   return None
 
 
-def edmonds_karp_max_flow(C, s, t):
+def edmonds_karp_max_flow(graph, source, sink):
 	
-	n = len(C) 
-	F = []
+	V = len(graph) 
+	flow = []
 
-	for i in range(n):
-		F.append([0] * n)		
+	for i in range(V):
+		flow.append([0] * V)       
 	
-	path = ek_bfs(C, s, t, F)
+	path = ek_bfs(graph, source, sink, flow)
  
 	while path != None:
 
-		flow = min(C[u][v] - F[u][v] for u,v in path)
+		f = min(graph[u][v] - flow[u][v] for u,v in path)
 
 		for u,v in path:
-			F[u][v] += flow
-			F[v][u] -= flow
+			flow[u][v] += f
+			flow[v][u] -= f
 
-		path = ek_bfs(C, s, t, F)
+		path = ek_bfs(graph, source, sink, flow)
 
 	final_flow = []
-	for i in range(n):
-		final_flow.append(F[s][i])  			# Find the final total flow by adding flows across all paths
+	for i in range(V):
+		final_flow.append(flow[source][i])              # Find the final total flow by adding flows across all paths
 
 	return (sum(final_flow))
+
