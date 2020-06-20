@@ -1,6 +1,6 @@
 from collections import deque
 from sys import maxsize as maxint
-from lib.test import *
+from lib.modified_edmonds_karp_algorithm import *
 
 BLACK = 2
 GRAY = 1
@@ -51,7 +51,7 @@ class GomoryHuTree:
 
             t = p[s]
 
-            min_cut, self.color, self.pred, self.depth, self.flow = test_max_flow(self.graph, s, t, self.color, self.pred, self.depth, self.flow)
+            min_cut, self.color, self.pred, self.depth, self.flow = modified_edmonds_karp_max_flow(self.graph, s, t, self.color, self.pred, self.depth, self.flow)
 
             f1[s] = min_cut
 
@@ -77,8 +77,8 @@ class GomoryHuTree:
 
     def query(self, u, v):
         """Query GomoryHuTree"""
-        min_cut1, self.color, self.pred, self.depth, self.flow = test_max_flow(self.graph, u, v, self.color, self.pred, self.depth, self.flow)
-        min_cut2, self.color, self.pred, self.depth, self.flow = test_max_flow(self.graph, v, u, self.color, self.pred, self.depth, self.flow)
+        min_cut1, self.color, self.pred, self.depth, self.flow = modified_edmonds_karp_max_flow(self.graph, u, v, self.color, self.pred, self.depth, self.flow)
+        min_cut2, self.color, self.pred, self.depth, self.flow = modified_edmonds_karp_max_flow(self.graph, v, u, self.color, self.pred, self.depth, self.flow)
 
         return max(min_cut1, min_cut2)
 

@@ -1,7 +1,7 @@
 from collections import deque
 from sys import maxsize as maxint
 
-def test_bfs(graph, start, target, color, pred, depth, capacity, flow):
+def modified_bfs(graph, start, target, color, pred, depth, capacity, flow):
     """Breadth-First Search between start and target"""
  
 
@@ -34,7 +34,7 @@ def test_bfs(graph, start, target, color, pred, depth, capacity, flow):
 
     return (color[target] == BLACK, color, pred, depth)
 
-def test_max_flow(graph, source, sink, color, pred, depth, flow):
+def modified_edmonds_karp_max_flow(graph, source, sink, color, pred, depth, flow):
     """Find maximum flow / minimum cut between source and sink with Ford Fulkerson"""
 
     V = len(graph)
@@ -52,7 +52,7 @@ def test_max_flow(graph, source, sink, color, pred, depth, flow):
         for j in range(V):
             flow[i, j] = 0
 
-    result, color, pred, depth = test_bfs(graph, source, sink, color, pred, depth, capacity, flow)
+    result, color, pred, depth = modified_bfs(graph, source, sink, color, pred, depth, capacity, flow)
     while result:
         increment = maxint
 
@@ -72,6 +72,6 @@ def test_max_flow(graph, source, sink, color, pred, depth, flow):
 
         max_flow += increment
 
-        result, color, pred, depth = test_bfs(graph, source, sink, color, pred, depth, capacity, flow)
+        result, color, pred, depth = modified_bfs(graph, source, sink, color, pred, depth, capacity, flow)
 
     return (max_flow, color, pred, depth, flow)

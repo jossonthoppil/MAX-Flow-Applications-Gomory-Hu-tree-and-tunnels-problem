@@ -26,7 +26,7 @@ def main():
 		# node 0  1  2  3  4  5
 
 
-	max_flow, color, pred, depth, flow = test_max_flow(graph, source, sink, color, pred, depth, flow)
+	max_flow, color, pred, depth, flow = modified_edmonds_karp_max_flow(graph, source, sink, color, pred, depth, flow)
 	print(max_flow)
 
 if __name__ == "__main__":
