@@ -4,6 +4,7 @@ from lib.push_relabel_algorithm import *
 from lib.dinic_algorithm import *
 
 from gomory_hu import GomoryHuTree
+from tunnels import *
 
 def main():
 	# make a capacity graph
@@ -14,7 +15,7 @@ def main():
 	print("Enter the option to execute the option you want")
 	print("1 - Test various implementations of Max-Flow algorithms")
 	print("2 - Test the Gomory-Hu Data Structure, built on the Edmonds-Karp Algorithm for Max-Flow ")
-	print("3 - Test *******Josson's entry******")
+	print("3 - Application of Max Flow: Analysis of escape routes in an underground tunnel network and determining most efficient way to prevent escape")
 	print("4 - Exit")
 	option = int(input())
 	while(option in [1, 2, 3]):
@@ -121,15 +122,15 @@ def main():
 			#print("       ", tree.query(v2, v1))
 
 		elif (option == 3):
-			print()
-			print("*******Josson's part*****")
+			result = tunnels()
+			print("\n\n\n\t\t\tThe answer for the minimum number of tunnels to collapse is : " + str(result))
 		
 		print()
 		print("------------------------------------------------------------------------------------------")
 		print("Enter the option to execute the option you want")
 		print("1 - Test various implementations of Max-Flow algorithms")
 		print("2 - Test the Gomory-Hu Data Structure, built on the Edmonds-Karp Algorithm for Max-Flow ")
-		print("3 - Test *******Josson's entry******")
+		print("3 - Application of Max Flow: Analysis of escape routes in an underground tunnel network and determining most efficient way to prevent escape")
 		print("4 - Exit")
 		option = int(input())
 
